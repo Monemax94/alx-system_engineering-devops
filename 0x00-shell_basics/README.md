@@ -1,1 +1,1 @@
-This is a README file for the project
+A project for basic shell commands
