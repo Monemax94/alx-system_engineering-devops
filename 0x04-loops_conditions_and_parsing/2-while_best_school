@@ -5,5 +5,5 @@ DISPLAY=0
 while [ $DISPLAY -lt 10 ]
 do
     echo "Best School"
-    let DISPLAY=DISPLAY+1
+    ((DISPLAY = DISPLAY+1))
 done
