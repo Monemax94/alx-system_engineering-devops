@@ -1,4 +1,5 @@
 # ALX-Holberton School System Engineering & DevOps Track
+<img src="image.jpg" text-align="center">
 
 ## Description
 At ALX-Holbernton School, we learn by doing. We have projects everyday that we have to push on GitHub in order for an automatic review to be done.
