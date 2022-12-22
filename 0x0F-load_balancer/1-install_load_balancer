@@ -12,8 +12,8 @@ frontend  monemax-frontend
         default_backend monemax-backend
 backend monemax-backend
         balance roundrobin
-        59259 web-01 35.153.78.254:80 check
-        59259 web-02 52.86.27.132:80 check
+        server 59259-web-01 35.153.78.254:80 check
+        server 59259-web-02 52.86.27.132:80 check
 EOF
 
 service haproxy restart
