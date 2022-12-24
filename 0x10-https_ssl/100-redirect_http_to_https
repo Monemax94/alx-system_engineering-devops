@@ -37,24 +37,22 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-listen thelaura
-        bind :80
-        mode http
+frontend front_http
+        bind *:80
+        redirect scheme https code 301 if !{ ssl_fc }
+	default_backend back_http
+
+frontend front_https
+        bind 0.0.0.0:443 ssl crt /etc/letsencrypt/live/www.monemax.tech/fullchain.pem
+        acl    letsencrypt-acl path_beg /.well-known/acme-challenge/
+	use_backend letsencrypt-backend if letsencrypt-acl
+        default_backend back_http
+
+backend back_http
         balance roundrobin
-        server 652-web-01 35.190.176.186:80 check
-        server 652-web-02 35.196.156.157:80 check
+	redirect scheme https if !{ ssl_fc }
+        server 59259-web-01 35.153.78.254:80 check
+        server 59259-web-02 52.86.27.132:80 check
 
-frontend www-http
-        bind :80
-        reqadd X-Forwarded-Proto:\ http
-        default_backend web-backend
-
-frontend www-https
-        bind :443 ssl crt /etc/haproxy/ssl/www.thelaura.tech.pem
-        reqadd X-Forwarded-Proto:\ https
-        default_backend web-backend
-
-backend web-backend
-        http-request redirect scheme https code 301 if !{ ssl_fc }
-        server 652-web-01 35.190.176.186:80 check
-        server 652-web-02 35.196.156.157:80 check
+backend letsencrypt-backend
+        server letsencrypt 127.0.0.1:8888
