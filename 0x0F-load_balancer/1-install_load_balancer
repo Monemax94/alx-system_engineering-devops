@@ -1,19 +1,7 @@
 #!/usr/bin/env bash
-# Install and configure HAproxy on your lb-01 server.
+#Install haproxy and configurate both servers
 
-apt-get install --no-install-recommends software-properties-common
-add-apt-repository ppa:vbernat/haproxy-2.6
-apt-get install haproxy=2.6.\*
-
-cat >> /etc/haproxy/haproxy.cfg << EOF
-frontend  monemax-frontend
-        bind *:80
-        mode http
-        default_backend monemax-backend
-backend monemax-backend
-        balance roundrobin
-        server 59259-web-01 35.153.78.254:80 check
-        server 59259-web-02 52.86.27.132:80 check
-EOF
-
+apt-get -y update
+apt-get -y install haproxy
+echo -e "\nfrontend front\n\tbind *:80\n\tmode http\n\tdefault_backend back\n\nbackend back\n\tbalance roundrobin\n\tserver 59259-web-01 35.153.78.254:80 check\n\tserver 59259-web-02 52.86.27.132:80 check" >> /etc/haproxy/haproxy.cfg
 service haproxy restart
