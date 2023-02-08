@@ -38,6 +38,6 @@ frontend  monemax-frontend
         default_backend monemax-backend
 backend monemax-backend
         balance roundrobin
-        server 59259-web-01 35.153.78.254:80 check
+        server 59259-web-01 34.224.15.191:80 check
         server 59259-web-02 52.86.27.132:80 check
 

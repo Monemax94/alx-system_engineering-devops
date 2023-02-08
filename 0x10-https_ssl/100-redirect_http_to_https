@@ -51,7 +51,7 @@ frontend front_https
 backend back_http
         balance roundrobin
 	redirect scheme https if !{ ssl_fc }
-        server 59259-web-01 35.153.78.254:80 check
+        server 59259-web-01 34.224.15.191:80 check
         server 59259-web-02 52.86.27.132:80 check
 
 backend letsencrypt-backend
